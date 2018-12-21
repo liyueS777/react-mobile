@@ -24,54 +24,36 @@ const CommentList = Loadable({
     loader: () => import('../views/Comment/List'),
     loading//这里的loading是一个函数返回一个jsx语法的前提是引入react，也可以使用一个loading 的component组件
 });
+const CommentDetail = Loadable({
+    loader: () => import('../views/CommentDetail/CommentDetail'),
+    loading//这里的loading是一个函数返回一个jsx语法的前提是引入react，也可以使用一个loading 的component组件
+});
 
 
-const routes = [
+const routes = [ 
     {
         path:'/',
         component:Home,
         exact:true,
         meta:{
             title:'首页'
-        }
-    },   
-    {
-        path:'/home',
-        component:Home,
-        exact:true,
-        meta:{
-            title:'首页'
         },
-        // routes:[
-        //     {
-        //         path:'/user/',
-        //         component:UserList,
-        //         meta:{
-        //             title:'UserList'
-        //         }
-        //     },
-        //     {
-        //         path:'/user/userAdd',
-        //         component:UserAdd,
-        //         meta:{
-        //             title:'userAdd'
-        //         }
-        //     },
-        //     {
-        //         path:'/user/userDetail',
-        //         component:UserDetail,
-        //         meta:{
-        //             title:'userDetail'
-        //         }
-        //     },
-        //     {
-        //         path:'/user/todoRedux2',
-        //         component:TodoRedux2,
-        //         meta:{
-        //             title:'todoRedux2'
-        //         }
-        //     }
-        // ]
+        routes:[
+            {
+                path:'/home/commentList',
+                component:CommentList,
+                meta:{
+                    title:'评论列表'
+                }
+            },
+            {
+                path:'/home/commentDetail',
+                component:CommentDetail,
+                meta:{
+                    title:'评论详情'
+                }
+            }
+        ]
     },
     {
         path:'/login',
@@ -82,10 +64,11 @@ const routes = [
         }
     },
     {
-        path:'/commentList',
-        component:CommentList,
+        path:'/login111',
+        component:Login,
+        exact:true,
         meta:{
-            title:'评论列表'
+            title:'登录'
         }
     },
     {

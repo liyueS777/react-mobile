@@ -1,5 +1,7 @@
 import React from 'react';
-import { SearchBar,WhiteSpace,ListView,PullToRefresh } from 'antd-mobile';
+import { SearchBar,ListView,PullToRefresh } from 'antd-mobile';
+import { withRouter } from 'react-router-dom'
+
 import '../../assets/css/List.less'
 import ReactDOM from 'react-dom';
 import { getCompany } from '../../config/api'
@@ -163,4 +165,4 @@ class CommentList extends React.Component {
     }
 }
 
-export default CommentList
+export default withRouter(CommentList)

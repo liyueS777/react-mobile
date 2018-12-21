@@ -146,7 +146,7 @@ class NotFind extends React.Component {
         ref={el => this.lv = el}
         dataSource={this.state.dataSource}
         // renderHeader={() => <span>Pull to refresh</span>}
-        renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+        renderFooter={() => (<div style={{ padding: 15, textAlign: 'center' }}>
           {this.state.isLoading ? '正在加载中...' : '我也是有底线的~~'}
         </div>)}
         renderRow={row}

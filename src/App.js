@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter as Router,Route,Link,Switch,Redirect,withRouter } from 'react-router-dom'
+import { HashRouter as Router,Route} from 'react-router-dom'
 import './assets/css/common/base.css'
 import './config/flexible'
 import routes from './routes/index'
@@ -19,14 +19,8 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <div className='tabar-bottom-list'>
-            <Link to="/home">home</Link>
-            <Link to="/login">login</Link>
-            <Link to="/commentList">list</Link>
-            <Link to="/404">404</Link>
-          </div>
           <div className="routerView">
-            <Switch>
+            {/* <Switch> */}
               {
                 routes.map((route,key) =>{
                   if(route.exact){
@@ -44,8 +38,8 @@ class App extends Component {
                   }
                 })
               }
-              <Route render={() => <Redirect to="/404" />} />
-            </Switch>
+              {/* <Route render={() => <Redirect to="/404" />} /> */}
+            {/* </Switch> */}
           </div>
         </div>
       </Router>
