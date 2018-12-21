@@ -30,24 +30,26 @@ const CommentDetail = Loadable({
 });
 
 
-const routes = [ 
+const routes = [
     {
-        path:'/',
+        path:'/home',
         component:Home,
-        exact:true,
+        // exact:true,//这里 如果有嵌套路由，那么不要严格匹配，不然子路由衍射不到，如果只有一级路由，那么需要严格匹配
         meta:{
             title:'首页'
         },
         routes:[
             {
-                path:'/home/commentList',
+                path:'/home/',
                 component:CommentList,
+                exact:true,
                 meta:{
                     title:'评论列表'
                 }
             },
             {
                 path:'/home/commentDetail',
+                exact:true,
                 component:CommentDetail,
                 meta:{
                     title:'评论详情'

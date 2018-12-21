@@ -22,7 +22,7 @@ class CommentList extends React.Component {
         };
     }
     componentWillMount(){
-        this.props.onEnter()();
+        // this.props.onEnter()();
     }
     componentDidUpdate() {
         if (this.state.useBodyScroll) {

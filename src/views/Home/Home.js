@@ -19,17 +19,24 @@ class Home extends React.Component {
     render() {
         return (
             <div className="home">
-                <button onClick={this.goIndex}>gogo</button>
+                {/* <button onClick={this.goIndex}>gogo</button> */}
                 <div className='tabar-bottom-list'>
                     <Link to="/home/commentDetail">commentDetail</Link>
-                    <Link to="/home/commentList">list</Link>
+                    <Link to="/home/">list</Link>
                 </div>
                 <div className="home-body">
                     {
                         this.props.routes.map((route,key)=>{
-                            return (
-                                <Route exact key={key} path={route.path} component={route.component} />
-                            )
+                            if(route.exact){
+                                return (
+                                    <Route exact key={key} path={route.path} component={route.component} />
+                                )
+                            }else {
+                                return (
+                                    <Route key={key} path={route.path} component={route.component} />
+                                )
+                            }
+                            
                         })
                     }
                 </div>
