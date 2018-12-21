@@ -1,5 +1,9 @@
 import React from 'react';
-import { Route,Link,withRouter } from 'react-router-dom'
+import { Route,Link,withRouter,Switch } from 'react-router-dom'
+
+import CommentList from '../Comment/index'
+import CommentDetail from '../CommentDetail/index'
+
 import '../../assets/css/Home.less'
 class Home extends React.Component {
     constructor(props) {
@@ -8,7 +12,7 @@ class Home extends React.Component {
     }
     componentWillMount(){
         console.log('Home',this.props);
-        this.props.onEnter()()
+        // this.props.onEnter()()
     }
     setTitle = (t) =>{
         document.title = t
@@ -25,13 +29,10 @@ class Home extends React.Component {
                     <Link to="/home/commentList">list</Link>
                 </div>
                 <div className="home-body">
-                    {
-                        this.props.routes.map((route,key)=>{
-                            return (
-                                <Route exact key={key} path={route.path} component={route.component} />
-                            )
-                        })
-                    }
+                {/* <Switch> */}
+                    <Route exact path='/home/commentList' component={CommentList} />
+                    <Route exact path='/home/commentDetail' component={CommentDetail} />
+                {/* </Switch> */}
                 </div>
             </div>
         );

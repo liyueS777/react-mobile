@@ -6,7 +6,7 @@ class Login extends React.Component {
     }
     componentWillMount(){
         console.log('notfinfd');
-        this.props.onEnter()()
+        // this.props.onEnter()()
         
     }
     render() {

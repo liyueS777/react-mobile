@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { HashRouter as Router,Route} from 'react-router-dom'
+import { HashRouter as Router,Route,Switch,Redirect} from 'react-router-dom'
 import './assets/css/common/base.css'
 import './config/flexible'
-import routes from './routes/index'
 import './assets/css/app.less'
+import Login from './views/Login/index'
+import Home from './views/Home/index'
+import NotFind from './views/NotFind/index'
+
 class App extends Component {
   constructor(props){
     super(props)
@@ -21,24 +24,10 @@ class App extends Component {
         <div className="App">
           <div className="routerView">
             {/* <Switch> */}
-              {
-                routes.map((route,key) =>{
-                  if(route.exact){
-                    return <Route key={key}  path={route.path} exact render={
-                      props =>
-                      (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
-                    }
-                    />
-                  }else {
-                    return <Route key={key} path={route.path}  render={
-                      props =>
-                      (<route.component {...props} meta={route.meta} onEnter={() => this.setTitle.bind(this,route.meta.title)}  routes={route.routes} />)
-                    }
-                    />
-                  }
-                })
-              }
-              {/* <Route render={() => <Redirect to="/404" />} /> */}
+              <Route exact path='/' component={Home} />
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/404' component={NotFind} />
+              <Route render={() => <Redirect to="/404" />} />
             {/* </Switch> */}
           </div>
         </div>

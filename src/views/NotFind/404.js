@@ -40,7 +40,7 @@ class NotFind extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onEnter()()
+    // this.props.onEnter()()
     const hei = this.state.height - ReactDOM.findDOMNode(this.lv).offsetTop;
     getCompany()
     .then(res=>{

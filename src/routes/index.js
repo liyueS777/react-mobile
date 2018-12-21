@@ -28,55 +28,7 @@ const CommentDetail = Loadable({
     loader: () => import('../views/CommentDetail/CommentDetail'),
     loading//这里的loading是一个函数返回一个jsx语法的前提是引入react，也可以使用一个loading 的component组件
 });
+export default {
+    CommentDetail,CommentList,NotFind,Login,Home
+}
 
-
-const routes = [ 
-    {
-        path:'/',
-        component:Home,
-        exact:true,
-        meta:{
-            title:'首页'
-        },
-        routes:[
-            {
-                path:'/home/commentList',
-                component:CommentList,
-                meta:{
-                    title:'评论列表'
-                }
-            },
-            {
-                path:'/home/commentDetail',
-                component:CommentDetail,
-                meta:{
-                    title:'评论详情'
-                }
-            }
-        ]
-    },
-    {
-        path:'/login',
-        component:Login,
-        exact:true,
-        meta:{
-            title:'登录'
-        }
-    },
-    {
-        path:'/login111',
-        component:Login,
-        exact:true,
-        meta:{
-            title:'登录'
-        }
-    },
-    {
-        path:'/404',
-        component:NotFind,
-        meta:{
-            title:'页面找不到'
-        }
-    }
-]
- export default routes
