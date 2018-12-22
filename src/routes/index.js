@@ -28,15 +28,27 @@ const CommentDetail = Loadable({
     loader: () => import('../views/CommentDetail/CommentDetail'),
     loading//这里的loading是一个函数返回一个jsx语法的前提是引入react，也可以使用一个loading 的component组件
 });
+const Index = Loadable({
+    loader: () => import('../views/Home/Index'),
+    loading//这里的loading是一个函数返回一个jsx语法的前提是引入react，也可以使用一个loading 的component组件
+});
 
 
 const routes = [
+    {
+        path:'/',
+        component:Index,
+        exact:true,//这里 如果有嵌套路由，那么不要严格匹配，不然子路由衍射不到，如果只有一级路由，那么需要严格匹配
+        meta:{
+            title:'首页'
+        },
+    },
     {
         path:'/home',
         component:Home,
         // exact:true,//这里 如果有嵌套路由，那么不要严格匹配，不然子路由衍射不到，如果只有一级路由，那么需要严格匹配
         meta:{
-            title:'首页'
+            title:'首页home'
         },
         routes:[
             {
