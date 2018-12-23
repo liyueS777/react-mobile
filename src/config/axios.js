@@ -1,5 +1,9 @@
 
 import axios from 'axios';
+import {createHashHistory} from 'history';
+const history = createHashHistory();
+
+console.log('axios router',history)
 // import globalCode from '../constants/globalCode'; 
 // import { Toast } from 'antd-mobile';
 // import {createHashHistory} from 'history';
@@ -25,6 +29,7 @@ instance.interceptors.request.use(function(config){
 
 //添加响应拦截器
 instance.interceptors.response.use(function(response){
+
     //对响应数据做些事
     return response.data;
   },function(error){
@@ -44,6 +49,10 @@ instance.interceptors.response.use(function(response){
         params: method === 'GET' || method === 'DELETE' ? params : null
       })
       .then(response => {
+        console.log('www:','这里写登陆返回逻辑')
+        // if(!window.localStorage.getItem('isLogin')){
+        //   history.push('/login')
+        // }
         resolve(response.data)
       }, err => {
         reject(err)

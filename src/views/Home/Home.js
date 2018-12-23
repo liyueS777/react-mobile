@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route,Link,withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import '../../assets/css/Home.less'
 class Home extends React.Component {
     constructor(props) {
@@ -13,15 +14,14 @@ class Home extends React.Component {
     setTitle = (t) =>{
         document.title = t
     }
-    goIndex = () =>{
-        this.props.history.push('/b')
+    componentWillReceiveProps(nextProps){
+        console.log('home componentWillReceiveProps:',nextProps)
     }
     render() {
         return (
             <div className="home">
-                {/* <button onClick={this.goIndex}>gogo</button> */}
                 <div className='tabar-bottom-list'>
-                    <Link to="/home/commentDetail">commentDetail</Link>
+                    <Link to="/home/commentDetail">{Number(this.props.login)},commentDetail</Link>
                     <Link to="/home/">list</Link>
                 </div>
                 <div className="home-body">
@@ -44,5 +44,9 @@ class Home extends React.Component {
         );
     }
 }
-
-export default Home
+const mapStateToProps = (state) => {
+    return {
+      login:state.login.loginStatus
+    }
+  }
+export default connect(mapStateToProps,null)(withRouter(Home));
