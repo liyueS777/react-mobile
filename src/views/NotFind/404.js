@@ -7,6 +7,9 @@ class NotFind extends React.Component {
       title:'404~~'
     }
   }
+  componentDidMount(){
+    this.props.onEnter()()
+  }
   render(){
     return (
       <div>{this.state.title}</div>

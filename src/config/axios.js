@@ -49,7 +49,7 @@ instance.interceptors.response.use(function(response){
         params: method === 'GET' || method === 'DELETE' ? params : null
       })
       .then(response => {
-        console.log('www:','这里写登陆返回逻辑')
+        // console.log('www:','这里写登陆返回逻辑')
         // if(!window.localStorage.getItem('isLogin')){
         //   history.push('/login')
         // }

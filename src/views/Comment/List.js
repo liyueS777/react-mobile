@@ -21,9 +21,6 @@ class CommentList extends React.Component {
         rData:[]
         };
     }
-    componentWillMount(){
-        // this.props.onEnter()();
-    }
     componentDidUpdate() {
         if (this.state.useBodyScroll) {
           document.body.style.overflow = 'auto';
@@ -31,7 +28,12 @@ class CommentList extends React.Component {
           document.body.style.overflow = 'hidden';
         }
     }
+    componentWillMount(){
+        this.props.onEnter()();
+    }
     componentDidMount() {
+        console.log('list mount:',this.props)
+        
         this.autoFocusInst.focus();
         const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
         // simulate initial Ajax

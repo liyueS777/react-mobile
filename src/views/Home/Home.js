@@ -29,11 +29,22 @@ class Home extends React.Component {
                         this.props.routes.map((route,key)=>{
                             if(route.exact){
                                 return (
-                                    <Route exact key={key} path={route.path} component={route.component} />
+                                    // 用这个种方式可以在嵌套路由中获取属性
+                                    <Route exact key={key} path={route.path}  render={
+                                        props =>
+                                        (<route.component {...props} meta={route.meta} aa='12' onEnter={() => this.setTitle.bind(this,route.meta.title)} />)
+                                      }
+                                      />
+                                    // <Route exact key={key} path={route.path} onEnter={() => this.setTitle.bind(this,route.meta.title)} component={route.component} />
                                 )
                             }else {
                                 return (
-                                    <Route key={key} path={route.path} component={route.component} />
+                                    <Route key={key} path={route.path}  render={
+                                        props =>
+                                        (<route.component {...props} meta={route.meta} onEnter={() => this.setTitle.bind(this,route.meta.title)} />)
+                                      }
+                                      />
+                                    // <Route key={key} path={route.path} onEnter={() => this.setTitle.bind(this,route.meta.title)} component={route.component} />
                                 )
                             }
                             
