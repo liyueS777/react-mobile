@@ -12,7 +12,9 @@ class CommentDetail extends React.Component {
         this.props.onEnter()();
     }
     logout = () => {
+        window.localStorage.removeItem('loginStatus')
         this.props.logout(false)
+        this.props.history.push('/login')
     }
     render() {
         return (

@@ -15,6 +15,7 @@ class Login extends React.Component {
     }
     login = () => {
         this.props.login(true);
+        window.localStorage.setItem('loginStatus',true)
         this.props.history.push('/')
     }
     render() {

@@ -38,7 +38,14 @@ class App extends Component {
                   routes.map((route,key) =>{
                     if(route.path=='/login'){
                       return <Route key={key}  path={route.path} exact render={
-                        props => 
+                        props => loginStatus?
+                        (<Redirect to={
+                          {
+                            pathname: '/',
+                            state: { from: props.location }
+                          }
+                        } />)
+                        :
                         (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
                       }
                       />
