@@ -1,9 +1,10 @@
 
 import axios from 'axios';
 import {createHashHistory} from 'history';
-const history = createHashHistory();
-
-console.log('axios router',history)
+// import store from '../store'
+// import { check_login } from '../store/actionCreator'
+// const history = createHashHistory();
+// console.log('axios router',history)
 // import globalCode from '../constants/globalCode'; 
 // import { Toast } from 'antd-mobile';
 // import {createHashHistory} from 'history';
@@ -49,9 +50,20 @@ instance.interceptors.response.use(function(response){
         params: method === 'GET' || method === 'DELETE' ? params : null
       })
       .then(response => {
+        // history.listen(function(r){
+        //   console.log('我是axios的listener',r);//这里会累加
+        // })
         // console.log('www:','这里写登陆返回逻辑')
+        // ------------------这里可以处理响应拦截器的东西-----------------------
         // if(!window.localStorage.getItem('isLogin')){
         //   history.push('/login')
+        // }
+
+        // --------------------这里可以处理状态管理以及拦截器的东西---------------------
+        // if(response.data.code==1){
+        //   window.localStorage.removeItem('loginStatus')
+        //   store.dispatch(check_login(false));
+        //   history.push('/app/login')
         // }
         resolve(response.data)
       }, err => {

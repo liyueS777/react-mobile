@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {a:1}
   }
   componentDidMount(){
-    console.log('app',this.props);
+    console.log('appJsss',this.props);
     setTimeout(()=>{
       // this.
     },3000)
@@ -24,6 +24,9 @@ class App extends Component {
   componentWillReceiveProps(nextProps){
     console.log('app componentWillReceiveProps:',nextProps)
     
+  }
+  componentWillUpdate(nextProps){
+    console.log('app:componentWillUpdate:',nextProps)
   }
   render() {
     let loginStatus = this.props.login?this.props.login:(window.localStorage.getItem('loginStatus')?true:false)

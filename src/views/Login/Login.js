@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 import { check_login } from '../../store/actionCreator'
+import '../../assets/css/Login.less'
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -20,9 +21,9 @@ class Login extends React.Component {
     }
     render() {
         return (
-            <div>
-                <div>login</div>
-                <Button onClick={this.login}>登录</Button>
+            <div className="login-module">
+                <div className="loginDesp">login</div>
+                <Button className="ly-btn-medium" onClick={this.login}>登录</Button>
             </div>
         );
     }

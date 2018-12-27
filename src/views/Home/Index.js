@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-
+import { Button,WhiteSpace } from 'antd-mobile'
+import '../../assets/css/HomeIndex.less'
 class IndexC extends React.Component {
     constructor(props) {
         super(props);
@@ -10,11 +11,17 @@ class IndexC extends React.Component {
         this.props.onEnter()()
         console.log('indexxx:',this.props)
     }
+    goHomeIndex = () =>{
+        this.props.history.push('/home/list')
+    }
     render() {
         return (
-            <div>
-                <div>Index</div>
-                <Link to='/home'>go home</Link>
+            <div className="homeIndex">
+                <div className="title">欢迎之家~</div>
+                <WhiteSpace className="line-bg-white"></WhiteSpace>
+                <div className="content">
+                    <Button className="ly-btn-medium" onClick={this.goHomeIndex}>去home展示吧~</Button>
+                </div>
             </div>
         );
     }
