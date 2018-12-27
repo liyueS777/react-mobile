@@ -52,7 +52,7 @@ const routes = [
         },
         routes:[
             {
-                path:'/home/',
+                path:'/home/list',
                 component:CommentList,
                 exact:true,
                 meta:{

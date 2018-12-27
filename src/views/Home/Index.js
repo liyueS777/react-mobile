@@ -8,6 +8,7 @@ class IndexC extends React.Component {
     }
     componentDidMount(){
         this.props.onEnter()()
+        console.log('indexxx:',this.props)
     }
     render() {
         return (

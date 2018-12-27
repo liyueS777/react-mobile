@@ -30,7 +30,7 @@ class App extends Component {
     console.log('appJs',loginStatus);
     return (
       // <Provider store={store}>
-        <Router>
+        <Router basename="/app/">
           <div className="App">
             <div className="routerView">
               <Switch>
