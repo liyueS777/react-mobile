@@ -20,7 +20,7 @@ import { LOGIN_STATUS } from '../actionType'
 //不使用，不过这个看抉择
 const defaultState = {
     default:'001',
-    loginStatus:false
+    loginStatus:window.localStorage.getItem("loginStatus")?true:false
 }
 export default (state = defaultState,action) =>{
     

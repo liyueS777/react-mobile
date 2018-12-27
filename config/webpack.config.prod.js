@@ -31,7 +31,8 @@ const publicPath = paths.servedPath;
 // For these, "homepage" can be set to "." to enable relative asset paths.
 const shouldUseRelativeAssetPaths = publicPath === './';
 // Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
+const shouldUseSourceMap = false;
+// const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
 const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
@@ -129,8 +130,8 @@ module.exports = {
     // Generated JS file names (with nested folders).
     // There will be one main bundle, and one file per asynchronous chunk.
     // We don't currently advertise code splitting but Webpack supports it.
-    filename: 'static/js/[name].[chunkhash:8].js',
-    chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
+    filename: 'static/js/[name].[chunkhash].js',//这里变成hash 20 
+    chunkFilename: 'static/js/[name].[chunkhash].js',//这里变成hash 20 
     // We inferred the "public path" (such as / or /my-project) from homepage.
     publicPath: publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
@@ -455,7 +456,7 @@ module.exports = {
   plugins: [
     new UglifyJsPlugin({
       uglifyOptions: {
-        compress: {
+        compress: {//有效清楚线上版本控制台缓存
           warnings: false,
           drop_debugger: true,
           drop_console: true
@@ -467,12 +468,13 @@ module.exports = {
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
-      hash:true,
+      hash:true,//这里webpack有时间点限制，一般而言打包之后hash都不一样，可以防止版本缓存
       template: paths.appHtml,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
         removeRedundantAttributes: true,
+        //这些可以把html全部压缩
         useShortDoctype: true,
         removeEmptyAttributes: true,
         removeStyleLinkTypeAttributes: true,
@@ -503,8 +505,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: 'static/css/[name].[contenthash:8].css',
-      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+      filename: 'static/css/[name].[chunkhash].css',//css 一样hash 20
+      chunkFilename: 'static/css/[name].[chunkhash].css',
     }),
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without

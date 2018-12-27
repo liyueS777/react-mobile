@@ -34,7 +34,7 @@ class CommentList extends React.Component {
     componentDidMount() {
         console.log('list mount:',this.props)
         
-        this.autoFocusInst.focus();
+        // this.autoFocusInst.focus();
         const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop;
         // simulate initial Ajax
         getCompany()
