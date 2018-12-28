@@ -22,7 +22,7 @@ class Home extends React.Component {
                     {/* 这里的activeClassName 是自定义该激活路由的classname，可以统一定义也可以自定义 */}
                     <NavLink activeClassName="selected1 a"  to="/home/commentDetail?a=2&c=3">{Number(this.props.login)},commentDetail</NavLink>
                     <NavLink activeClassName="selected2 a"  to="/home/list?d=5">list</NavLink>
-                    <NavLink activeClassName="selected2 a"  to="/home/HOC2">HOC</NavLink>
+                    <NavLink activeClassName="selected2 a"  to="/home/HOC">HOC</NavLink>
                 </div>
                 <div className="home-body">
                     {
