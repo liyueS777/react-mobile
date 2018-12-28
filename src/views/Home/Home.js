@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route,Link,withRouter,NavLink } from 'react-router-dom'
+import { Route,withRouter,NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import '../../assets/css/Home.less'
 class Home extends React.Component {
@@ -14,17 +14,15 @@ class Home extends React.Component {
     setTitle = (t) =>{
         document.title = t
     }
-    componentWillReceiveProps(nextProps){
-        console.log('home componentWillReceiveProps:',nextProps)
-    }
     render() {
         return (
             <div className="home">
                 <div className='tabar-bottom-list'>
                     {/* 这里使用 NavLink 是唯一匹配激活的a标签的className ，默认active,如果父组件是/home 子组件是/home/ 也会匹配。建议不写 */}
                     {/* 这里的activeClassName 是自定义该激活路由的classname，可以统一定义也可以自定义 */}
-                    <NavLink activeClassName="selected1 a"  to="/home/commentDetail">{Number(this.props.login)},commentDetail</NavLink>
-                    <NavLink activeClassName="selected2 a"  to="/home/list">list</NavLink>
+                    <NavLink activeClassName="selected1 a"  to="/home/commentDetail?a=2&c=3">{Number(this.props.login)},commentDetail</NavLink>
+                    <NavLink activeClassName="selected2 a"  to="/home/list?d=5">list</NavLink>
+                    <NavLink activeClassName="selected2 a"  to="/home/HOC2">HOC</NavLink>
                 </div>
                 <div className="home-body">
                     {

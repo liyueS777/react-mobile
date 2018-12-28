@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import { Button,WhiteSpace } from 'antd-mobile'
 import '../../assets/css/HomeIndex.less'
 class IndexC extends React.Component {

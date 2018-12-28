@@ -4,7 +4,7 @@ import Loadable from 'react-loadable';
 import timing from '../assets/images/timg.gif'
 import '../assets/css/common/loading.less'
 const loading = function(){
-    return (<div className="loading"><img src={timing} /></div>)
+    return (<div className="loading"><img src={timing} alt="正在加载中..." /></div>)
 }
 
 
@@ -30,6 +30,10 @@ const CommentDetail = Loadable({
 });
 const Index = Loadable({
     loader: () => import('../views/Home/Index'),
+    loading
+});
+const HOC = Loadable({
+    loader: () => import('../views/HOC/create2'),
     loading
 });
 
@@ -65,6 +69,14 @@ const routes = [
                 component:CommentDetail,
                 meta:{
                     title:'评论详情'
+                }
+            },
+            {
+                path:'/home/HOC',
+                exact:true,
+                component:HOC,
+                meta:{
+                    title:'HOC高阶组件'
                 }
             }
         ]
