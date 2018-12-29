@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 import { check_login } from '../../store/actionCreator'
+import { getQueryString } from '../../config/utils'
 import '../../assets/css/Login.less'
 class Login extends React.Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class Login extends React.Component {
         this.props.login(true);
         window.localStorage.setItem('loginStatus',true);
         // var redirect = this.props.location.search
-        var redirect = '/home/commentDetail'
+        var redirect = getQueryString(this.props.location.search.substr(1),"redirect")
         this.props.history.push(redirect?redirect:'/')
     }
     render() {
