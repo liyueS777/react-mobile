@@ -55,7 +55,7 @@ export const routes = [
         meta:{
             title:'首页home',
             needLogin:true,
-            multiView:true
+            multiView:true//当是嵌套路由时登录状态以及权限管理放到嵌套的地方
         },
         routes:[
             {

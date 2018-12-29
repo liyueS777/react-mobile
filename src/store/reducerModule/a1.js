@@ -1,4 +1,29 @@
-import { LOGIN_STATUS } from '../actionType'
+import { LOGIN_STATUS,OPEN_TIPS } from '../actionType'
+
+const defaultState = {
+    default:'001',
+    loginStatus:window.localStorage.getItem("loginStatus")?true:false,
+    openStatus:window.localStorage.getItem("openTips")?true:false,
+}
+export default (state = defaultState,action) =>{
+    
+    if(action.type === LOGIN_STATUS){
+        const s = JSON.parse(JSON.stringify(state))
+        s.loginStatus = action.value;
+        return s;
+    } 
+    else if(action.type === OPEN_TIPS){
+        const s = JSON.parse(JSON.stringify(state))
+        s.openStatus = action.value;
+        return s;
+    }
+
+    else {
+        return state
+    }
+}
+
+
 // import { fromJS } from 'immutable'
 // fromJS 是转化为immutable对象，toJs 是转化为JS 对象
 //使用immutable 对象
@@ -18,42 +43,3 @@ import { LOGIN_STATUS } from '../actionType'
 //     ]
 // })
 //不使用，不过这个看抉择
-const defaultState = {
-    default:'001',
-    loginStatus:window.localStorage.getItem("loginStatus")?true:false
-}
-export default (state = defaultState,action) =>{
-    
-    if(action.type === LOGIN_STATUS){
-        const s = JSON.parse(JSON.stringify(state))
-        s.loginStatus = action.value;
-        return s;
-        // return state.set('inputValue',action.value)//使用immutable后要用set get方法
-        // return {
-        //     inputValue:action.value
-        // }
-    }
-
-    else {
-        return state
-    }
-    // switch(action.type){
-    //     case CHANGE_INPUT_VALUE :
-    //         return state.set('inputValue',action.value)
-    //         break;
-    //     case INPUT_BLUR :
-    //         return state.set('input_status',action.value)
-    //         break;
-    //     case INPUT_FOCUS :
-    //         return state.set('input_status',action.value)
-    //         break;
-    //     case LIST :
-    //         var arr = state.get('iList');
-    //         arr.push(action.value);
-    //         console.log(arr)
-    //         return state.set('iList',arr)
-    //         break;
-    //     default:
-    //         return state;
-    // }
-}

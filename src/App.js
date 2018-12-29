@@ -65,9 +65,9 @@ class App extends Component {
                 return (
                   <Route key={key}  path={route.path} exact render={
                     props => {
-                      // if(route.meta.needLogin && !loginStatus){
-                      //   Toast.info('请先登录~', 1.5);
-                      // }
+                      if(route.meta.needLogin && !loginStatus){
+                        Toast.info('请先登录~', 1.5);
+                      }
                       return route.meta.needLogin?
                       (
                         loginStatus?
@@ -91,9 +91,9 @@ class App extends Component {
               }else {
                 return <Route key={key} path={route.path}  render={
                   props => {
-                    // if(route.meta.needLogin && !loginStatus){
-                    //   Toast.info('请先登录~', 1.5);
-                    // }
+                    if(route.meta.needLogin && !loginStatus){
+                      Toast.info('请先登录~', 1.5);
+                    }
                     return route.meta.needLogin?
                     (loginStatus?
                       (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)

@@ -1,5 +1,8 @@
 import React from 'react';
-import { Button,WhiteSpace } from 'antd-mobile'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Button,WhiteSpace,Modal } from 'antd-mobile'
+import { open_tips } from '../../store/actionCreator'
 import '../../assets/css/HomeIndex.less'
 class IndexC extends React.Component {
     constructor(props) {
@@ -7,11 +10,16 @@ class IndexC extends React.Component {
         this.state = {  };
     }
     componentDidMount(){
+        let that = this
         this.props.onEnter()()
-        console.log('indexxx:',this.props)
+        console.log('indexxx:',this.props);
+        Modal.alert('通知','确定开启广告之旅？',[
+            { text: '取消', onPress: ()=>that.props.handleOpenStatus(false) },
+            { text: '好的', onPress: ()=>that.props.handleOpenStatus(true) },
+        ])
     }
     goHomeIndex = () =>{
-        this.props.history.push('/home/list')
+        this.props.history.push('/home/commentDetail')
     }
     render() {
         return (
@@ -25,5 +33,18 @@ class IndexC extends React.Component {
         );
     }
 }
-
-export default IndexC;
+const mapStateToProps = (state) => {
+    return {
+      login:state.login.loginStatus,
+      openStatus:state.login.openStatus
+    }
+}
+const mapDispathToProps = (dispatch) => {
+    return {
+        handleOpenStatus(flag){
+            if(!flag){window.localStorage.removeItem('openTips')}else{window.localStorage.setItem('openTips',flag)}
+            dispatch(open_tips(flag))
+        }
+    }
+}
+export default connect(mapStateToProps,mapDispathToProps)(withRouter(IndexC));
