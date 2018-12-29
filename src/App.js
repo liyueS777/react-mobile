@@ -3,8 +3,9 @@ import { Route,Switch,Redirect,withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import './assets/css/common/base.css'
 import './config/flexible'
-import routes from './routes/index'
+import { routes } from './routes/index'
 import './assets/css/app.less'
+import { Toast } from 'antd-mobile'
 // import { PrivateRoute } from './routes/auth'
 class App extends Component {
   constructor(props){
@@ -32,43 +33,83 @@ class App extends Component {
           {
             routes.map((route,key) =>{
               if(route.path==='/login'){
-                return <Route key={key}  path={route.path} exact render={
-                  props => loginStatus?
-                  (<Redirect to={
-                    {
-                      pathname: '/',
-                      state: { from: props.location }
-                    }
-                  } />)
-                  :
-                  (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
+                return <Route key={key} path={route.path} exact render={
+                  props => {
+                    return loginStatus?
+                    (<Redirect to={
+                                    {
+                                      pathname: '/',
+                                      state: { from: props.location }
+                                    }
+                                  } 
+                    />)
+                    :
+                    (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
+                  }
                 }
                 />
               }
+              //route.meta.multiView 区分嵌套路由，嵌套路由不在主路由设置登录态
+              else if(route.meta.multiView){
+                //嵌套路由的具体的去设置登录状态，也许有的路由需要登录有的路由不需要登陆，这里是统一设置的
+                return (
+                  <Route key={key}  path={route.path} render={
+                    props => {
+                      return (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
+                    }                  
+                  }
+                  />
+                )
+              }
               else if(route.exact){
-                return <Route key={key}  path={route.path} exact render={
-                  props => loginStatus?
-                  (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
-                  :
-                  (<Redirect to={
-                    {
-                      pathname: '/login',
-                      state: { from: props.location }
-                    }
-                  } />)
-                }
-                />
+                return (
+                  <Route key={key}  path={route.path} exact render={
+                    props => {
+                      // if(route.meta.needLogin && !loginStatus){
+                      //   Toast.info('请先登录~', 1.5);
+                      // }
+                      return route.meta.needLogin?
+                      (
+                        loginStatus?
+                          (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
+                        :
+                          (<Redirect to={
+                                        {
+                                          pathname: '/login',
+                                          search:"?redirect="+props.location.pathname,
+                                          state: { from: props.location }
+                                        }
+                                      } 
+                          />)
+                      )
+                      :
+                      (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
+                    }                  
+                  }
+                  />
+                )
               }else {
                 return <Route key={key} path={route.path}  render={
-                  props => loginStatus?
-                  (<route.component {...props} meta={route.meta} onEnter={() => this.setTitle.bind(this,route.meta.title)}  routes={route.routes} />)
-                  :
-                  (<Redirect to={
-                    {
-                      pathname: '/login',
-                      state: { from: props.location }
-                    }
-                  } />)
+                  props => {
+                    // if(route.meta.needLogin && !loginStatus){
+                    //   Toast.info('请先登录~', 1.5);
+                    // }
+                    return route.meta.needLogin?
+                    (loginStatus?
+                      (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
+                      :
+                      (<Redirect to={
+                                      {
+                                        pathname: '/login',
+                                        search:"?redirect="+props.location.pathname,
+                                        state: { from: props.location }
+                                      }
+                                    } 
+                      />)
+                    )
+                    :
+                    (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
+                  }
                 }
                 />
               }

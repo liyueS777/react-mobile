@@ -7,9 +7,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 import store from './store'
+import { baseRootRoute } from './routes/index'
 ReactDOM.render(
     <Provider store={store}>
-        <Router basename="/app/">
+        <Router basename={baseRootRoute}>
             <div className="App">
                 <Switch>
                     <App />

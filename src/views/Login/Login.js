@@ -16,8 +16,10 @@ class Login extends React.Component {
     }
     login = () => {
         this.props.login(true);
-        window.localStorage.setItem('loginStatus',true)
-        this.props.history.push('/')
+        window.localStorage.setItem('loginStatus',true);
+        // var redirect = this.props.location.search
+        var redirect = '/home/commentDetail'
+        this.props.history.push(redirect?redirect:'/')
     }
     render() {
         return (

@@ -37,14 +37,15 @@ const HOC = Loadable({
     loading
 });
 
-
-const routes = [
+export const baseRootRoute = '/app/'
+export const routes = [
     {
         path:'/',
         component:Index,
         exact:true,//这里 如果有嵌套路由，那么不要严格匹配，不然子路由衍射不到，如果只有一级路由，那么需要严格匹配
         meta:{
-            title:'首页'
+            title:'首页',
+            needLogin:false
         },
     },
     {
@@ -52,7 +53,9 @@ const routes = [
         component:Home,
         exact:false,//这里 如果有嵌套路由，那么不要严格匹配，不然子路由衍射不到，如果只有一级路由，那么需要严格匹配
         meta:{
-            title:'首页home'
+            title:'首页home',
+            needLogin:true,
+            multiView:true
         },
         routes:[
             {
@@ -60,7 +63,8 @@ const routes = [
                 component:CommentList,
                 exact:true,
                 meta:{
-                    title:'评论列表'
+                    title:'评论列表',
+                    needLogin:true
                 }
             },
             {
@@ -68,7 +72,8 @@ const routes = [
                 exact:true,
                 component:CommentDetail,
                 meta:{
-                    title:'评论详情'
+                    title:'评论详情',
+                    needLogin:true
                 }
             },
             {
@@ -76,7 +81,8 @@ const routes = [
                 exact:true,
                 component:HOC,
                 meta:{
-                    title:'HOC高阶组件'
+                    title:'HOC高阶组件',
+                    needLogin:false
                 }
             }
         ]
@@ -86,7 +92,9 @@ const routes = [
         component:Login,
         exact:true,
         meta:{
-            title:'登录'
+            title:'登录',
+            needLogin:true,
+            redirect:'/'
         }
     },
     {
@@ -97,4 +105,3 @@ const routes = [
         }
     }
 ]
- export default routes

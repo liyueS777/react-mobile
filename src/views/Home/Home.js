@@ -1,7 +1,8 @@
 import React from 'react';
-import { Route,withRouter,NavLink } from 'react-router-dom'
+import { Route,withRouter,NavLink,Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import '../../assets/css/Home.less'
+import { Toast } from 'antd-mobile'
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -15,6 +16,7 @@ class Home extends React.Component {
         document.title = t
     }
     render() {
+        let loginStatus = this.props.login?this.props.login:(window.localStorage.getItem('loginStatus')?true:false)
         return (
             <div className="home">
                 <div className='tabar-bottom-list'>
@@ -29,22 +31,71 @@ class Home extends React.Component {
                         this.props.routes.map((route,key)=>{
                             if(route.exact){
                                 return (
-                                    // 用这个种方式可以在嵌套路由中获取属性
-                                    <Route exact key={key} path={route.path}  render={
-                                        props =>
-                                        (<route.component {...props} meta={route.meta} aa='12' onEnter={() => this.setTitle.bind(this,route.meta.title)} />)
+                                    <Route key={key}  path={route.path} exact render={
+                                        props => {
+                                          if(route.meta.needLogin && !loginStatus){
+                                            Toast.info('请先登录~', 1.5);
+                                          }
+                                          return route.meta.needLogin?
+                                          (
+                                            loginStatus?
+                                            (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
+                                            :
+                                            (<Redirect to={
+                                                            {
+                                                              pathname: '/login',
+                                                              search:"?redirect="+props.location.pathname,
+                                                              state: { from: props.location }
+                                                            }
+                                                          } 
+                                            />)
+                                          )
+                                          :
+                                          (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
+                                        }                  
                                       }
-                                      />
-                                    // <Route exact key={key} path={route.path} onEnter={() => this.setTitle.bind(this,route.meta.title)} component={route.component} />
+                                    />
+                                    // 用这个种方式可以在嵌套路由中获取属性
+                                    // <Route exact key={key} path={route.path}  render={
+                                    //     props =>
+                                    //     (<route.component {...props} meta={route.meta} aa='12' onEnter={() => this.setTitle.bind(this,route.meta.title)} />)
+                                    //   }
+                                    //   />
                                 )
                             }else {
                                 return (
-                                    <Route key={key} path={route.path}  render={
-                                        props =>
-                                        (<route.component {...props} meta={route.meta} onEnter={() => this.setTitle.bind(this,route.meta.title)} />)
+                                    <Route key={key}  path={route.path} render={
+                                        props => {
+                                          if(route.meta.needLogin && !loginStatus){
+                                            Toast.info('请先登录~', 1.5);
+                                          }
+                                          return route.meta.needLogin?
+                                          (
+                                            loginStatus?
+                                            (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
+                                            :
+                                            (<Redirect to={
+                                                            {
+                                                              pathname: '/login',
+                                                              search:"?redirect="+props.location.pathname,
+                                                              state: { from: props.location }
+                                                            }
+                                                          } 
+                                            />)
+                                          )
+                                          :
+                                          (<route.component {...props} meta={route.meta} onEnter={()=> this.setTitle.bind(this,route.meta.title)} routes={route.routes}  />)
+                                        }                  
                                       }
-                                      />
-                                    // <Route key={key} path={route.path} onEnter={() => this.setTitle.bind(this,route.meta.title)} component={route.component} />
+                                    />
+
+
+
+                                    // <Route key={key} path={route.path}  render={
+                                    //     props =>
+                                    //     (<route.component {...props} meta={route.meta} onEnter={() => this.setTitle.bind(this,route.meta.title)} />)
+                                    //   }
+                                    // />
                                 )
                             }
                             
