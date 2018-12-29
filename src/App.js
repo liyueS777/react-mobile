@@ -14,11 +14,8 @@ class App extends Component {
   }
   componentDidMount(){
     console.log('appJsss',this.props);
-    this.props.history.listen((r)=>{
-      console.log('我这里是监听',r,window.navigator)
-      if(r.pathname==='/home/list123'){
-        this.props.history.push('/home/list')
-      }
+    this.props.history.listen((r,rr,rrr)=>{
+      console.log('我这里是监听',r,rr,rrr,1112,this.props.location)
     })
   }
   setTitle = (t) =>{

@@ -33,4 +33,4 @@ const Introduction = (props) => {
     );
 }
 
-export default withRouter(Introduction);
+export default (Introduction);
