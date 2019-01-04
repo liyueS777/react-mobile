@@ -36,6 +36,10 @@ const HOC = Loadable({
     loader: () => import('../views/HOC/create2'),
     loading
 });
+// const Mobx = Loadable({
+//     loader: () => import('../views/Mobx/index'),
+//     loading
+// });
 
 export const baseRootRoute = '/app/'
 export const routes = [
@@ -84,7 +88,16 @@ export const routes = [
                     title:'HOC高阶组件',
                     needLogin:false
                 }
-            }
+            },
+            // {
+            //     path:'/home/Mobx',
+            //     exact:true,
+            //     component:Mobx,
+            //     meta:{
+            //         title:'Mobx',
+            //         needLogin:false
+            //     }
+            // }
         ]
     },
     {

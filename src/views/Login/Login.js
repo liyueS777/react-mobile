@@ -2,10 +2,16 @@ import React from 'react';
 import { Button } from 'antd-mobile'
 import { withRouter } from 'react-router-dom'
 
-import { connect } from 'react-redux'
-import { check_login } from '../../store/actionCreator'
+// import { check_login } from '../../store/actionCreator'
 import { getQueryString } from '../../config/utils'
 import '../../assets/css/Login.less'
+import { observer,inject } from 'mobx-react'
+
+
+
+
+@inject("LoginStore","UserInfoStore")
+@observer
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -16,8 +22,7 @@ class Login extends React.Component {
         this.props.onEnter()()
     }
     login = () => {
-        this.props.login(true);
-        window.localStorage.setItem('loginStatus',true);
+        this.props.LoginStore.setLoginMessage(666,true);
         // var redirect = this.props.location.search
         var redirect = getQueryString(this.props.location.search.substr(1),"redirect")
         this.props.history.push(redirect?redirect:'/')
@@ -31,19 +36,5 @@ class Login extends React.Component {
         );
     }
 }
-const mapStateToProps = (state) => {
-    return {
-      login:state.login.loginStatus
-    }
-}
-  
-const mapDispatchToProps = (dispatch) =>{
-    return {
-        login(status){
-            if(!status) return;
-            const action = check_login(status)
-            dispatch(action);
-        },
-    }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(Login))
+
+export default withRouter(Login)

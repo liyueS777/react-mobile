@@ -1,8 +1,11 @@
 import React from 'react';
 import { Route,withRouter,NavLink,Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
 import '../../assets/css/Home.less'
 import { Toast } from 'antd-mobile'
+import { observer,inject } from 'mobx-react'
+
+@inject("LoginStore","UserInfoStore")
+@observer
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -16,13 +19,15 @@ class Home extends React.Component {
         document.title = t
     }
     render() {
-        let loginStatus = this.props.login?this.props.login:(window.localStorage.getItem('loginStatus')?true:false)
+        // let loginStatus = this.props.login?this.props.login:(window.localStorage.getItem('loginStatus')?true:false)
+        let loginMessage = this.props.LoginStore.loginMessage;
+        let loginStatus = (loginMessage.uid && loginMessage.loginStatus)?true:false
         return (
             <div className="home">
                 <div className='tabar-bottom-list'>
                     {/* 这里使用 NavLink 是唯一匹配激活的a标签的className ，默认active,如果父组件是/home 子组件是/home/ 也会匹配。建议不写 */}
                     {/* 这里的activeClassName 是自定义该激活路由的classname，可以统一定义也可以自定义 */}
-                    <NavLink activeClassName="selected1 a"  to="/home/commentDetail?a=2&c=3">{Number(this.props.login)},commentDetail</NavLink>
+                    <NavLink activeClassName="selected1 a"  to="/home/commentDetail?a=2&c=3">{this.props.UserInfoStore.filterNums},commentDetail</NavLink>
                     <NavLink activeClassName="selected2 a"  to="/home/list?d=5">list</NavLink>
                     <NavLink activeClassName="selected2 a"  to="/home/HOC">HOC</NavLink>
                 </div>
@@ -106,9 +111,5 @@ class Home extends React.Component {
         );
     }
 }
-const mapStateToProps = (state) => {
-    return {
-      login:state.login.loginStatus
-    }
-  }
-export default connect(mapStateToProps,null)(withRouter(Home));
+
+export default withRouter(Home);

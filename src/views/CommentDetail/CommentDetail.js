@@ -1,12 +1,17 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
 import { Button,WhiteSpace,Carousel, WingBlank } from 'antd-mobile'
-import { connect } from 'react-redux'
-import { check_login,open_tips } from '../../store/actionCreator'
+// import { check_login,open_tips } from '../../store/actionCreator'
 import '../../assets/css/CommentDetail.less'
 
 import Introduction from './children'
+import { observer,inject } from 'mobx-react'
 
+
+
+
+@inject("LoginStore","UserInfoStore")
+@observer
 class CommentDetail extends React.Component {
     constructor(props) {
         super(props);
@@ -28,8 +33,7 @@ class CommentDetail extends React.Component {
         this.props.onEnter()();
     }
     logout = () => {
-        window.localStorage.removeItem('loginStatus')
-        this.props.logout(false)
+        this.props.LoginStore.setLoginMessage(0,false)
         this.props.history.push('/login')
     }
     goBack = () => {
@@ -38,6 +42,9 @@ class CommentDetail extends React.Component {
     changeMeta = (p) => {
         this.props.meta.title=p;
         this.props.onEnter()();
+    }
+    handleOpenStatus = (flag) => {
+        this.props.UserInfoStore.setOpenBanner(flag)
     }
     render() {
         return (
@@ -51,7 +58,7 @@ class CommentDetail extends React.Component {
                 <h1>{this.props.openStatus?'开启了tips':'未开启tips'}</h1>
                 <WhiteSpace className="line-bg-white" />
                 {
-                    this.props.openStatus?
+                    this.props.UserInfoStore.openBanner?
                     <WingBlank>
                         <Carousel
                         autoplay={true}
@@ -85,7 +92,7 @@ class CommentDetail extends React.Component {
                 <WhiteSpace className="line-bg-white" />
                 <Button className="ly-btn-medium" onClick={this.logout}>退出</Button>
                 <Button className="ly-btn-medium" onClick={this.goBack}>上一级</Button>
-                <Button className="ly-btn-medium" onClick={this.props.handleOpenStatus.bind(this,!this.props.openStatus)}>{this.props.openStatus?'关掉轮播':'开启轮播'}</Button>
+                <Button className="ly-btn-medium" onClick={this.handleOpenStatus.bind(this,!this.props.UserInfoStore.openBanner)}>{this.props.UserInfoStore.openBanner?'关闭轮播':'开启轮播'}</Button>
                 <Button className="ly-btn-medium" onClick={this.changeMeta.bind(this,666)}>修改meta666</Button>
                 <Button className="ly-btn-medium" onClick={this.changeMeta.bind(this,777)}>修改meta777</Button>
 
@@ -93,24 +100,5 @@ class CommentDetail extends React.Component {
         );
     }
 }
-const mapStateToProps = (state) => {
-    return {
-      login:state.login.loginStatus,
-      openStatus:state.login.openStatus
-    }
-}
-  
-const mapDispatchToProps = (dispatch) =>{
-    return {
-        logout(status){
-            if(status) return;
-            const action = check_login(status)
-            dispatch(action);
-        },
-        handleOpenStatus(flag){
-            if(!flag){window.localStorage.removeItem('openTips')}else{window.localStorage.setItem('openTips',flag)}
-            dispatch(open_tips(flag))
-        }
-    }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(CommentDetail))
+
+export default withRouter(CommentDetail)

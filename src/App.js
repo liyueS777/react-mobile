@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Route,Switch,Redirect,withRouter} from 'react-router-dom'
-import { connect } from 'react-redux'
 import './assets/css/common/base.css'
 import './config/flexible'
 import { routes } from './routes/index'
 import './assets/css/app.less'
 import { Toast } from 'antd-mobile'
 // import { PrivateRoute } from './routes/auth'
+import { observer,inject } from 'mobx-react'
+
+@inject("LoginStore")
+@observer
 class App extends Component {
   constructor(props){
     super(props)
@@ -22,7 +25,9 @@ class App extends Component {
     document.title = t
   }
   render() {
-    let loginStatus = this.props.login?this.props.login:(window.localStorage.getItem('loginStatus')?true:false)
+    let loginMessage = this.props.LoginStore.loginMessage;
+    let loginStatus = (loginMessage.uid && loginMessage.loginStatus)?true:false
+    // let loginStatus = this.props.login?this.props.login:(window.localStorage.getItem('loginStatus')?true:false)
     console.log('appJs::loginStatus',loginStatus);
     return (
       <div className="appRouterView">
@@ -119,18 +124,5 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    login:state.login.loginStatus
-  }
-}
 
-const mapDispatchToProps = (dispatch) =>{
-  return {
-      inputChange(e){
-          // const action = change_input_value(e.target.value)
-          // dispatch(action);
-      },
-    }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(App));
+export default withRouter(App)
