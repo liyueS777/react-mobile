@@ -6,8 +6,6 @@ import '../assets/css/common/loading.less'
 const loading = function(){
     return (<div className="loading"><img src={timing} alt="正在加载中..." /></div>)
 }
-
-
 const Home = Loadable({
     loader: () => import('../views/Home/Home'),
     loading//这里的loading是一个函数返回一个jsx语法的前提是引入react，也可以使用一个loading 的component组件

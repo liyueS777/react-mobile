@@ -5,7 +5,7 @@ import './config/flexible'
 import { routes } from './routes/index'
 import './assets/css/app.less'
 import { Toast } from 'antd-mobile'
-// import { PrivateRoute } from './routes/auth'
+
 import { observer,inject } from 'mobx-react'
 
 @inject("LoginStore")

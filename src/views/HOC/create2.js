@@ -4,7 +4,7 @@ import { Button,WhiteSpace } from 'antd-mobile'
 
 
 import { observer,inject } from 'mobx-react'
-
+import MyToast from '../../components/toastBox'
 @inject("UserInfoStore")
 @observer
 
@@ -12,6 +12,7 @@ class HOC2 extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
+            title:12,
             style:{
                 fontSize:'0.16rem'
             }
@@ -20,6 +21,14 @@ class HOC2 extends React.Component {
     addNum = (num) => {
         this.props.UserInfoStore.setFilterNum(num)
     }
+    openMyToast = () => {
+        MyToast.loading('加载123',3000,()=>{
+            console.log(1,this.state.title)
+        })
+        MyToast.success('加载-success',3000,()=>{
+            console.log(2,this.state.title)
+        })
+    }
     render() {
         console.log('HOC:',this.props)
         return (
@@ -27,8 +36,9 @@ class HOC2 extends React.Component {
                 <h4>HOC</h4>
                 <div>
                     <WhiteSpace className="line-bg-white" />
-                    <Button className="ly-btn-medium" onClick={this.addNum.bind( +this,this.props.UserInfoStore.filter + 1 )}>增加Num-Mobx-{this.props.UserInfoStore.filter}</Button>
+                    <Button className="ly-btn-medium"  onClick={this.addNum.bind( +this,this.props.UserInfoStore.filter + 1 )}>增加Num-Mobx-{this.props.UserInfoStore.filter}</Button>
                     <WhiteSpace className="line-bg-white" />
+                    <Button className="ly-btn-medium" onClick={this.openMyToast}>打开自定义弹窗-loading</Button>
                 </div>
             </div>
         );

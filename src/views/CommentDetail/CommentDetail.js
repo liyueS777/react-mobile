@@ -28,6 +28,9 @@ class CommentDetail extends React.Component {
             });
           }, 100);
     }
+    componentWillReceiveProps(nextProps){
+        console.log('componentWillReceiveProps:',nextProps)
+    }
     componentWillMount(){
         console.log('CommentDetail:',this.props)
         this.props.onEnter()();
