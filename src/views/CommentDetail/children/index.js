@@ -28,7 +28,8 @@ const Introduction = (props) => {
             <p>这里是commentDetal-children</p>
             <p>利用无状态组件</p>
             <p>无状态组件不支持 "ref"</p>
-            {props.children}
+            <div>1:{props.children[0]}</div>
+            <div>2:{props.children[1]}</div>
         </div>
     );
 }
