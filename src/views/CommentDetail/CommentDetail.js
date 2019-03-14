@@ -18,7 +18,8 @@ class CommentDetail extends React.Component {
         this.state = { 
             data: ['1', '2', '3'],
             imgHeight: 176,
-            a:1
+            a:1,
+            t:'init title'
          };
     }
     componentDidMount(){
@@ -29,7 +30,7 @@ class CommentDetail extends React.Component {
           }, 100);
     }
     componentWillReceiveProps(nextProps){
-        console.log('componentWillReceiveProps:',nextProps)
+        console.log('commnetDetail:componentWillReceiveProps:',nextProps)
     }
     componentWillMount(){
         console.log('CommentDetail:',this.props)
@@ -44,6 +45,11 @@ class CommentDetail extends React.Component {
     }
     changeMeta = (p) => {
         this.props.meta.title=p;
+        this.setState(()=>{
+            return {
+                t:p+1
+            }
+        })
         this.props.onEnter()();
     }
     handleOpenStatus = (flag) => {
@@ -54,9 +60,9 @@ class CommentDetail extends React.Component {
             <div className="commentDtail">
                 <h1>这里是CommentDetail</h1>
                 <WhiteSpace className="line-bg-white" />
-                <Introduction>
-                    <WhiteSpace className="line-bg-white" />
-                    <div>我是设置的自定义子元数</div>
+                <Introduction title={this.state.t}>
+                    {/* <WhiteSpace className="line-bg-white" />
+                    <div>我是设置的自定义子元数</div> */}
                 </Introduction>
                 <h1>{this.props.openStatus?'开启了tips':'未开启tips'}</h1>
                 <WhiteSpace className="line-bg-white" />
